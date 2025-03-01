@@ -1,16 +1,17 @@
-from langchain_huggingface import HuggingFaceEndpoint,ChatHuggingFace,HuggingFacePipeline
-from transformers import pipeline
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import streamlit as st
-import os
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+load_dotenv()
 
-# Integrate with LangChain
-llm = HuggingFacePipeline(pipeline=summarizer)
+model = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
 
-# Summarize text
-text = "Summarize the Word2Vec paper in 5 lines."
-response = llm.invoke(text)
+st.header("summarization")
 
-print(response)
+user_input = st.text_input("Enter your input")
+
+if st.button("summarize"):
+    
+    res = model.invoke(user_input)
+
+    st.write(res.content)
