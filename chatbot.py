@@ -1,22 +1,22 @@
-from langchain_huggingface import HuggingFaceEndpoint,ChatHuggingFace
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
-import os
+from langchain_core.messages import SystemMessage,AIMessage,HumanMessage
 
 load_dotenv()
 
-hf_api_key = os.getenv("HUGGINGFACEHUB_ACCESS_TOKEN")
+model = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
 
-llm = HuggingFaceEndpoint(
-    repo_id="meta-llama/Meta-Llama-3-8B-Instruct",
-    huggingfacehub_api_token=hf_api_key
-)
-
-model = ChatHuggingFace(llm=llm)
+chat_history = [
+    SystemMessage(content="You are a helpfull assitant")
+]
 
 while True:
-    user_input = input("you:")
-    if user_input == 'exit':
+    user_input = input("Yes:")
+    chat_history.append(HumanMessage(content=user_input))
+    if user_input == "exit":
         break
-    result = model.invoke(user_input)
+    res = model.invoke(chat_history)
+    chat_history.append(AIMessage(content=res.content))
 
-    print("AI:",result.content)
+    print(res.content)
+print(chat_history)
