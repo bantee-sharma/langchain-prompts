@@ -6,12 +6,9 @@ load_dotenv()
 
 model = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
 
-st.header("summarization")
-
-user_input = st.text_input("Enter your input")
+st.header("SmartSummarize: AI-Powered Text Summarizer")
+user_input = st.text_input("Enter text to generate a summary")
 
 if st.button("summarize"):
-    
     res = model.invoke(user_input)
-
     st.write(res.content)
