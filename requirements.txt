@@ -9,5 +9,3 @@ streamlit
 transformers
 langchain-google-genai
 google-generativeai
-openai
-
