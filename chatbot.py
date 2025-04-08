@@ -3,20 +3,19 @@ from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage,HumanMessage,AIMessage
 load_dotenv()
 
-model = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
+model = ChatGoogleGenerativeAI(model = "gemini-2.0-flash")
 
 chat_history = [
-    SystemMessage(content="Hello! 😊 How can I assist you today?"),
+    SystemMessage(content="You are a helpfull AI")
 ]
 
 while True:
-    user_input = input("Yes:")
-    chat_history.append(HumanMessage(content=user_input))
-    if user_input == "exit":
+    input_text = input("You: ")
+    chat_history.append(HumanMessage(content=input_text))
+    if input_text == "exit":
         break
     res = model.invoke(chat_history)
-    chat_history.append(AIMessage(content = res.content))
-
-    print("AI:",(res.content))
-
+    chat_history.append(AIMessage(content=res.content))
+    print("AI: ",res.content)
 print(chat_history)
+
