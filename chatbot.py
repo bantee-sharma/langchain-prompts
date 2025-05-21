@@ -17,17 +17,26 @@ print("🤖 Hey! I'm your AI buddy. Ask me anything! Type 'exit' or 'quit' to en
 while True:
     # Get user input
     user_input = input("You: ")
+
     # Append user's message to chat history
     chat_history.append(HumanMessage(content=user_input))
+
     # Check if the user wants to exit the chat
     if user_input.strip().lower() in ["exit","quit"]:
         print("AI: Goodbye! Have a great day!")
+
         break # Exit the while loop to end program
+    
     else:
+
         # Send entire conversation history to the LLM to generate a response
         result = llm.invoke(chat_history)
+
         # Append AI's response to chat history to maintain context for next turn
         chat_history.append(AIMessage(content=result.content))
+
         # Display the AI's response
         print("AI: ",result.content)
+
+# Print chat history        
 print(chat_history)
