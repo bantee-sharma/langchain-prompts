@@ -1,6 +1,8 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage,HumanMessage,AIMessage
+
+# Load environment variables from .env file (e.g., API keys)
 load_dotenv()
 
 model = ChatGoogleGenerativeAI(model = "gemini-2.0-flash")
